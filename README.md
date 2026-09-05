@@ -172,5 +172,58 @@ Proyecto educativo de uso libre.
 
 ---
 
+## 🚀 Despliegue en producción
+
+### Opción 1: Render (recomendado, gratis)
+
+1. **Sube el proyecto a GitHub** (este proyecto ya está en `https://github.com/ingjcesarmojica/profeingles`).
+
+2. **Crea una cuenta en [Render](https://render.com)** y vincula tu GitHub.
+
+3. **Crea un nuevo "Web Service"** apuntando al repositorio.
+
+4. **Configuración automática** (Render detecta el `render.yaml`):
+   - Build Command: `bash build.sh`
+   - Start Command: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
+   - Plan: Free
+   - Disco persistente: 1GB (para que SQLite no se borre en redeploys)
+
+5. **Variables de entorno** (Render las genera automáticamente):
+   - `FLASK_SECRET` - se genera automáticamente
+   - `PORT` - lo asigna Render
+   - `PYTHON_VERSION` - 3.11.6
+
+6. **Deploy** y en 2-3 minutos tu app estará en `https://profe-ingles.onrender.com`
+
+### Opción 2: Railway
+
+1. Ve a [Railway](https://railway.app) y vincula GitHub.
+2. Selecciona el repo, Railway detecta el `Procfile` automáticamente.
+3. Agrega las variables de entorno necesarias.
+4. Deploy automático.
+
+### Opción 3: Local con Gunicorn (Linux/Mac)
+
+```bash
+pip install -r requirements.txt
+gunicorn app:app --bind 0.0.0.0:8000 --workers 2
+```
+
+### Archivos importantes para deploy
+
+- `Procfile` - Comando de inicio para Heroku/Render/Railway
+- `render.yaml` - Configuración como código (Infra as Code) para Render
+- `runtime.txt` - Versión de Python
+- `build.sh` - Script de build
+- `requirements.txt` - Dependencias (incluye `gunicorn`)
+
+### ⚠️ Nota sobre SQLite en producción
+
+SQLite funciona perfecto en Render con el **disco persistente** configurado en `render.yaml`. Si prefieres no usar disco, los datos de progreso se perderán en cada redeploy, pero la app seguirá funcionando (solo perderá el historial del usuario).
+
+Para producción seria, considera migrar a PostgreSQL (Render ofrece PostgreSQL gratis).
+
+---
+
 **💡 Hecho con ❤️ para hispanohablantes que quieren aprender inglés de forma ordenada y clara.**
 

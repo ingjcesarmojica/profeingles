@@ -500,7 +500,8 @@ def api_reset():
 # INICIO
 # ============================================================
 
-if __name__ == "__main__":
+def _print_banner():
+    """Imprime el banner de inicio (solo en desarrollo local)"""
     import sys
     if sys.platform.startswith("win"):
         try:
@@ -520,6 +521,13 @@ if __name__ == "__main__":
     print("=" * 70)
     print(f"  Servidor: http://localhost:{port}")
     print("=" * 70)
+
+
+# El bloque __main__ solo se ejecuta con `python app.py` (desarrollo local).
+# En produccion (Render, Heroku, etc.) se usa gunicorn que importa `app` directamente.
+if __name__ == "__main__":
+    _print_banner()
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
 
 
