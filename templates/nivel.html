@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nivel_info.nombre }} - Profe Bilingue</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header class="nivel-header" style="--nivel-color: {{ nivel_info.color }}">
+        <a href="/" class="back-link">← Volver a niveles</a>
+        <div class="nivel-header-content">
+            <div class="nivel-emoji-big">{{ nivel_info.emoji }}</div>
+            <div>
+                <h1>{{ nivel_info.nombre }}</h1>
+                <p class="nivel-descripcion">{{ nivel_info.descripcion }}</p>
+                <p class="nivel-meta-info">📚 {{ total }} lecciones en este nivel</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Lecciones del nivel {{ nivel_id }}</h2>
+        <p class="section-subtitle">
+            Haz clic en una lección para empezar. Te recomiendo seguir el orden, pero puedes saltar
+            a la que te interese.
+        </p>
+
+        <div class="lecciones-grid">
+            {% for lec in lecciones %}
+            <a href="/leccion/{{ nivel_id }}/{{ lec.id }}" class="leccion-card">
+                <div class="leccion-numero">{{ lec.numero }}</div>
+                <div class="leccion-info">
+                    <h3>{{ lec.nombre }}</h3>
+                    <p>{{ lec.objetivo }}</p>
+                    <div class="leccion-meta">
+                        <span>📝 {{ lec.vocab_count }} palabras</span>
+                        <span>❓ {{ lec.preguntas_count }} preguntas</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

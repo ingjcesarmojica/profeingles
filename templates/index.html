@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profe Bilingue - Aprende Ingles por Niveles</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">🇬🇧 Aprende Inglés por Niveles</h1>
+                <p class="hero-subtitle">
+                    Te enseño en <strong>español</strong> y tú aprendes cómo se dice en inglés.
+                    Desde cero (A1) hasta nivel avanzado (C2).
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Niveles</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">{{ total }}</div>
+                        <div class="stat-label">Lecciones</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">En Español</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Selecciona tu nivel</h2>
+        <p class="section-subtitle">
+            Elige por dónde quieres empezar. Si no sabes tu nivel, te recomendamos comenzar desde A1.
+        </p>
+
+        <div class="niveles-grid">
+            {% for nivel in niveles %}
+            <div class="nivel-card" style="--nivel-color: {{ nivel.color }}">
+                <div class="nivel-emoji">{{ nivel.emoji }}</div>
+                <div class="nivel-nombre">{{ nivel.nombre }}</div>
+                <div class="nivel-desc">{{ nivel.descripcion }}</div>
+                <div class="nivel-meta">
+                    <span>📚 {{ nivel.total_lecciones }} lecciones</span>
+                </div>
+                <a href="/nivel/{{ nivel.id }}" class="btn-nivel">Empezar →</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="info-box">
+            <h3>🎓 ¿Cómo funciona?</h3>
+            <ol>
+                <li><strong>Elige un nivel</strong> según lo que ya sabes</li>
+                <li><strong>Lee cada lección</strong> - te explico en español, con la palabra en inglés y su pronunciación</li>
+                <li><strong>Practica</strong> respondiendo preguntas para afianzar lo aprendido</li>
+                <li><strong>Avanza a la siguiente lección</strong> cuando domines la actual</li>
+                <li><strong>Sube de nivel</strong> cuando completes todas las lecciones de un nivel</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <p>💡 Hecho con ❤️ para hispanohablantes que quieren aprender inglés</p>
+    </footer>
+</body>
+</html>

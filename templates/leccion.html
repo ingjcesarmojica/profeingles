@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ leccion.nombre }} - {{ nivel_info.nombre }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header class="leccion-header" style="--nivel-color: {{ nivel_info.color }}">
+        <a href="/nivel/{{ nivel_id }}" class="back-link">← Volver a {{ nivel_id }}</a>
+        <div class="leccion-header-content">
+            <h1>{{ leccion.nombre }}</h1>
+            <p class="leccion-objetivo">🎯 {{ leccion.objetivo }}</p>
+        </div>
+    </header>
+
+    <div class="leccion-layout">
+        <!-- Sidebar: Vocabulario de la lección -->
+        <aside class="vocab-sidebar">
+            <h3>📚 Vocabulario de la lección</h3>
+            <p class="vocab-hint">Estas son las palabras que vas a aprender:</p>
+            <div class="vocab-list">
+                {% for v in leccion.vocabulario %}
+                <div class="vocab-item">
+                    <div class="vocab-ingles">{{ v.ingles }}</div>
+                    <div class="vocab-pron">[{{ v.pronunciacion }}]</div>
+                    <div class="vocab-espanol">{{ v.espanol }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- Chat con el profesor -->
+        <main class="chat-main">
+            <div class="chat-header">
+                <div class="profesor-avatar">👨‍🏫</div>
+                <div>
+                    <div class="profesor-nombre">Profe Bilingue</div>
+                    <div class="profesor-info">
+                        Nivel {{ nivel_id }} - {{ nivel_info.nombre }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-mensajes" id="chatMensajes">
+                <div class="mensaje mensaje-profesor">
+                    <div class="mensaje-autor">👨‍🏫 Profe Bilingue</div>
+                    <div class="mensaje-contenido">
+                        👋 ¡Hola! Soy tu profesor de inglés.
+                        <br><br>
+                        Te voy a enseñar esta lección <strong>en español</strong> y tú aprendes
+                        cómo se dice cada cosa en inglés.
+                        <br><br>
+                        Empezaremos mostrándote el vocabulario, y después te haré preguntas
+                        para practicar.
+                        <br><br>
+                        Escribe <strong>tu nombre</strong> para comenzar:
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Escribe tu nombre, o 'empezar' para iniciar..."
+                    autocomplete="off"
+                >
+                <button id="chatSend" class="btn-send">Enviar ➤</button>
+            </div>
+
+            <div class="chat-sugerencias" id="chatSugerencias">
+                <button class="sug-btn" data-text="empezar">🚀 Empezar</button>
+                <button class="sug-btn" data-text="siguiente">➡️ Siguiente</button>
+                <button class="sug-btn" data-text="practicar">🎯 Practicar</button>
+                <button class="sug-btn" data-text="salir">👋 Salir</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const NIVEL_ID = "{{ nivel_id }}";
+        const LECCION_ID = "{{ leccion.id }}";
+        const LECCION_NOMBRE = "{{ leccion.nombre }}";
+        const NIVEL_NOMBRE = "{{ nivel_info.nombre }}";
+        const ES_ULTIMA = {{ 'true' if es_ultima else 'false' }};
+    </script>
+    <script src="/static/js/chat.js"></script>
+</body>
+</html>
